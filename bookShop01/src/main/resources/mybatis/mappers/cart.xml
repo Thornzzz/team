@@ -100,4 +100,11 @@
     	]]>
 	</select>
 
+	<!-- <select id="getCartQty" resultType="java.util.map" parameterType="String">
+		<![CDATA[
+		select cart_goods_qty from t_shopping_cart c
+		where g.goods_id=#{goods_id}
+		and c.goods_id=#{goods_id}
+		]]> 
+	</select> -->
 </mapper>
