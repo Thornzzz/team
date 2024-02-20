@@ -21,7 +21,6 @@ public class CartDAOImpl  implements  CartDAO{
 	}
 
 	public List<GoodsVO> selectGoodsList(List<CartVO> cartList) throws DataAccessException {
-		
 		List<GoodsVO> myGoodsList;
 		myGoodsList = sqlSession.selectList("mapper.cart.selectGoodsList",cartList);
 		return myGoodsList;

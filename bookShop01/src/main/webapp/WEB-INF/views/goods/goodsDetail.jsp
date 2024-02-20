@@ -43,13 +43,14 @@
 </style>
 <script type="text/javascript">
 	function add_cart(goods_id) {
+		var cart_goods_qty = document.getElementById('order_goods_qty').value;
 		$.ajax({
 			type : "post",
 			async : false, //false인 경우 동기식으로 처리한다.
 			url : "${contextPath}/cart/addGoodsInCart.do",
 			data : {
-				goods_id:goods_id
-				
+				goods_id:goods_id,
+				cart_goods_qty:cart_goods_qty
 			},
 			success : function(data, textStatus) {
 				//alert(data);

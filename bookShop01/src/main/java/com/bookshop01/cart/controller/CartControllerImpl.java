@@ -48,21 +48,28 @@ public class CartControllerImpl extends BaseController implements CartController
 		return mav;
 	}
 	@RequestMapping(value="/addGoodsInCart.do" ,method = RequestMethod.POST,produces = "application/text; charset=utf8")
-	public  @ResponseBody String addGoodsInCart(@RequestParam("goods_id") int goods_id,
+	public  @ResponseBody String addGoodsInCart(@RequestParam Map<String,String> addCartMap,
 			                    HttpServletRequest request, HttpServletResponse response)  throws Exception{
 		HttpSession session=request.getSession();
 		memberVO=(MemberVO)session.getAttribute("memberInfo");
 		String member_id=memberVO.getMember_id();
-		
+		String str_goods_id = addCartMap.get("goods_id");
+		String str_cart_goods_qty = addCartMap.get("cart_goods_qty");
 		cartVO.setMember_id(member_id);
+		int goods_id = Integer.parseInt(str_goods_id);
+		int cart_goods_qty = Integer.parseInt(str_cart_goods_qty);
 		//카트 등록전에 이미 등록된 제품인지 판별한다.
+		System.out.println(goods_id);
+		System.out.println(cart_goods_qty);
 		cartVO.setGoods_id(goods_id);
 		cartVO.setMember_id(member_id);
+		
 		boolean isAreadyExisted=cartService.findCartGoods(cartVO);
 		System.out.println("isAreadyExisted:"+isAreadyExisted);
 		if(isAreadyExisted==true){
 			return "already_existed";
 		}else{
+			cartVO.setCart_goods_qty(cart_goods_qty);
 			cartService.addGoodsInCart(cartVO);
 			return "add_success";
 		}

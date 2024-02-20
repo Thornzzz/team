@@ -40,6 +40,7 @@
 		select cart_id, goods_id, member_id, cart_goods_qty, creDate 
 		from t_shopping_cart 
 		where member_id=#{member_id} 
+		 order by goods_id desc
 		]]>
 	</select>
 
@@ -53,7 +54,7 @@
 		<foreach item="item" collection="list" open="(" separator="," close=")">
 			#{item.goods_id}
 		</foreach>
-		order by g.goods_creDate desc
+		order by g.goods_id desc
 	</select>
 
 	<select id="selectCountInCart" resultType="String" parameterType="cartVO">
@@ -69,10 +70,12 @@
 	    <![CDATA[
 		    	insert into t_shopping_cart(cart_id,
 		    	                           goods_id,
-		    	                           member_id)
+		    	                           member_id,
+		    	                           cart_goods_qty)
 		        				 values(#{cart_id},
     							        #{goods_id},
-    							        #{member_id})
+    							        #{member_id},
+    							        #{cart_goods_qty})
     	]]>
 	</insert>
 
