@@ -49,7 +49,6 @@
 
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <script>
-	console.log("orderVO 출력" + ${orderVO});
     function execDaumPostcode() {
         new daum.Postcode({
             oncomplete: function(data) {

@@ -123,6 +123,11 @@ function delete_cart_goods(cart_id){
 function fn_order_each_goods(goods_id,goods_title,goods_sales_price,fileName){
 	var total_price,final_total_price,_goods_qty;
 	var cart_goods_qty=document.getElementById("cart_goods_qty");
+	console.log(goods_id);
+	console.log(goods_title);
+	console.log(goods_sales_price);
+	console.log(fileName);
+	console.log(cart_goods_qty);
 	
 	_order_goods_qty=cart_goods_qty.value; //장바구니에 담긴 개수 만큼 주문한다.
 	var formObj=document.createElement("form");
@@ -244,7 +249,7 @@ function fn_order_all_cart_goods(){
 					</td>
 					<td>
 					   <input type="text" name="cart_goods_qty" size=3 value="${cart_goods_qty}"><br>
-					   <input type="hidden" id="cart_goods_qty_${cnt.count-1 }" value="${cart_goods_qty}">
+					  <input type="hidden" id="cart_goods_qty" value="${cart_goods_qty}"> 
 						<a href="javascript:modify_cart_qty(${item.goods_id },${item.goods_sales_price*0.9 },${cnt.count-1 });" >
 						    <img width=25 alt=""  src="${contextPath}/resources/image/btn_modify_qty.jpg">
 						</a>

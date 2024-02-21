@@ -58,10 +58,7 @@ public class OrderControllerImpl extends BaseController implements OrderControll
 		 }
 		//비로그인시 구매 눌렀던 상품 orderinfo라는 이름으로 session.setAttribute로 저장해놨다가 로그인하면 다시 보여주는 부분
 		
-		System.out.println("orderVO출력" + _orderVO.toString());
-		
 		String viewName=(String)request.getAttribute("viewName");
-		System.out.println("오더 뷰네임!!!!!!!!!!!!" + viewName);
 		ModelAndView mav = new ModelAndView(viewName);
 		
 		List myOrderList=new ArrayList<OrderVO>();
