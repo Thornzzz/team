@@ -11,4 +11,6 @@ public interface MemberService {
 	public MemberVO login(Map  loginMap) throws Exception;
 	public boolean addMember(MemberVO memberVO) throws Exception;
 	public String overlapped(String id) throws Exception;
+	public String Findid(Map<String, String> memberInfoMap) throws Exception;
+	public String findPwd(Map<String, String> memberInfoMap) throws Exception;
 }

@@ -146,5 +146,58 @@ public class MemberControllerImpl extends BaseController implements MemberContro
 		return resEntity;
 	}
 	
+	@Override
+	@RequestMapping(value = "/Findid.do",method = RequestMethod.POST)
+	public ResponseEntity Findid(@RequestParam Map<String,String> memberInfoMap, HttpServletRequest requset, HttpServletResponse response) throws Exception{
+	ResponseEntity resEntity =null;
+	HttpHeaders responseHeaders = new HttpHeaders();
+	responseHeaders.add("Content-Type", "text/html; charset=utf-8");
+	String name=memberInfoMap.get("userName");
+	String hp1=memberInfoMap.get("phoneNumber1");
+	String hp2=memberInfoMap.get("phoneNumber2");
+	String hp3=memberInfoMap.get("phoneNumber3");
+	Map<String,String> infoMap = new HashMap<String,String>();
+	infoMap.put("member_name", name);
+	infoMap.put("HP1", hp1);
+	infoMap.put("HP2", hp2);
+	infoMap.put("HP3", hp3);
+	
+	String result = memberService.Findid(infoMap);
+	try {
+		
+	
+	resEntity = new ResponseEntity<>(result, responseHeaders, HttpStatus.OK);	
+	}catch (Exception e) {
+		e.printStackTrace();
+	}
+	//resEntity = new ResponseEntity("Error occurred", responseHeaders, HttpStatus.INTERNAL_SERVER_ERROR);
+	
+	return resEntity;
+	
+		
+	}
+	@Override
+	@RequestMapping(value = "/findPwd.do", method = RequestMethod.POST)
+	public ResponseEntity findPwd(@RequestParam Map<String,String> memberInfoMap, HttpServletRequest requset, HttpServletResponse response) throws Exception{
+	ResponseEntity resEntity = null;
+	HttpHeaders responHeaders = new HttpHeaders();
+	responHeaders.add("Content-Type", "text/html; charset=utf-8");
+	String id=memberInfoMap.get("userId");
+	String name=memberInfoMap.get("userName");
+	Map<String,String> infoMap = new HashMap<String,String>();
+	infoMap.put("member_id", id);
+	infoMap.put("member_name", name);
+		
+	String result = memberService.findPwd(infoMap);
+	try {
+		
+	
+	resEntity = new ResponseEntity<>(result, responHeaders, HttpStatus.OK);	
+	}catch (Exception e) {
+		e.printStackTrace();
+	}
+	
+	return resEntity;
+}
 
 }

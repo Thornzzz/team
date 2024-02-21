@@ -19,4 +19,6 @@ public interface MemberController {
             HttpServletRequest request, HttpServletResponse response) throws Exception;
 	public ResponseEntity   overlapped(@RequestParam("id") String id,HttpServletRequest request, HttpServletResponse response) throws Exception;
 	public ResponseEntity checkPwd(@RequestParam("pwd") String pwd, HttpServletRequest request, HttpServletResponse response) throws Exception;
+	public ResponseEntity Findid(@RequestParam Map<String,String> memberInfoMap, HttpServletRequest requset, HttpServletResponse response) throws Exception;
+	public ResponseEntity findPwd(@RequestParam Map<String,String> memberInfoMap, HttpServletRequest requset, HttpServletResponse response) throws Exception;
 }

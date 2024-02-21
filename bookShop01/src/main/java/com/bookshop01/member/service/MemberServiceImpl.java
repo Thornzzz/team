@@ -25,12 +25,10 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public boolean addMember(MemberVO memberVO) throws Exception{
 		boolean checker = memberDAO.member_phone_check(memberVO);
-		System.out.println("중복체크후 chcecker 값" + checker);
 		if(checker == true) {
 			return checker;
 		}
 		memberDAO.insertNewMember(memberVO);
-		System.out.println("서비스 chcecker 값" + checker);
 		return checker;
 	}
 	
@@ -39,5 +37,13 @@ public class MemberServiceImpl implements MemberService {
 		return memberDAO.selectOverlappedID(id);
 	}
 	
+	@Override
+	public String Findid(Map<String, String> memberInfoMap) throws Exception{
+		return memberDAO.Findid(memberInfoMap);
+	}          
+	
+	public String findPwd(Map<String, String> memberInfoMap) throws Exception{
+		return memberDAO.findPwd(memberInfoMap);
+	}
 	
 }

@@ -46,6 +46,39 @@ public class MemberDAOImpl  implements MemberDAO{
 		return result;
 	}
 	
+	@Override
+	public String Findid(Map<String, String> memberInfoMap)throws DataAccessException{
+		Map<String, String> params = new HashMap();
+		System.out.println("member:"+memberInfoMap);
+		params.put("member_name", memberInfoMap.get("member_name"));
+		System.out.println("name:" + memberInfoMap.get("member_name"));
+		params.put("HP1", memberInfoMap.get("HP1"));
+		params.put("HP2", memberInfoMap.get("HP2"));
+		params.put("HP3", memberInfoMap.get("HP3"));
+		
+		
+		String result = sqlSession.selectOne("mapper.member.Findid",params);
+		System.out.println("DAO 반환 결과: "+ result);
+		return result;
+	}
+	
+	@Override
+	public String findPwd(Map<String, String> memberInfoMap) throws DataAccessException{
+		Map<String,String> params =new HashMap<>();
+		params.put("member_id", memberInfoMap.get("member_id"));
+		params.put("member_name", memberInfoMap.get("member_name"));
+		
+		String result =sqlSession.selectOne("mapper.member.findPwd", params);
+		
+		return result;
+		
+	} 
+	/*@Override
+	public String unregister(Map<String,String> memberInfoMap) throws DataAccessException{
+		Map<String, String> params = new
+		
+	}*/
+	
 	
 	
 }

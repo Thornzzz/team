@@ -11,4 +11,7 @@ public interface MemberDAO {
 	public void insertNewMember(MemberVO memberVO) throws DataAccessException;
 	public String selectOverlappedID(String id) throws DataAccessException;
 	public boolean member_phone_check(MemberVO memberVO) throws DataAccessException;
+	public String Findid(Map<String, String> memberInfoMap) throws DataAccessException;
+	public String findPwd(Map<String, String> memberInfoMap) throws DataAccessException;
+	//public String unregister(Map<String,String> memberInfoMap) throws DataAccessException;
 }

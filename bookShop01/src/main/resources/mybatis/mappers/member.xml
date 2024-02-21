@@ -50,6 +50,19 @@
 	   where member_id = #{id}
 	</select>
 	
+	<select id="Findid" resultType="String" parameterType="java.util.Map">
+		<![CDATA[ 
+		SELECT member_id FROM t_shopping_member WHERE member_name = #{member_name, jdbcType=VARCHAR} AND HP1 = #{HP1, jdbcType=VARCHAR} AND HP2 = #{HP2, jdbcType=VARCHAR} AND HP3 = #{HP3, jdbcType=VARCHAR} 
+		]]>
+	</select>
+	
+	<select id="findPwd" resultType="String" parameterType="java.util.Map">
+		<![CDATA[ 
+		select member_pw from t_shopping_member where member_id= #{member_id} and member_name =#{member_name} 
+		]]>
+	</select>
+	
+	
 	<select id="member_phone_check" parameterType="java.util.Map" resultType="int">
 	 select /*T_SHOPPING_MEMBER_INDEX1*/ count(*) from T_SHOPPING_MEMBER
 		where member_name = #{member_name} 
