@@ -93,6 +93,10 @@ function modify_cart_qty(goods_id,bookPrice,index){
 			
 		}
 	}); //end ajax	
+	value1=document.frm_order_all_cart.cart_goods_qty[0].value;
+	
+	console.log("렝스" + length);
+	console.log("값" + value1);
 	console.log("수량" + _cart_goods_qty);
 	var _sales_price=document.frm_order_all_cart.goods_sales_price[index].value;
 	console.log("할인가격" + _sales_price);
@@ -248,8 +252,7 @@ function fn_order_all_cart_goods(){
 				         </strong>
 					</td>
 					<td>
-					   <input type="text" name="cart_goods_qty" size=3 value="${cart_goods_qty}"><br>
-					  <input type="hidden" id="cart_goods_qty" value="${cart_goods_qty}"> 
+					   <input type="text"  id="cart_goods_qty" name="cart_goods_qty" size=3 value="${cart_goods_qty}"><br> 
 						<a href="javascript:modify_cart_qty(${item.goods_id },${item.goods_sales_price*0.9 },${cnt.count-1 });" >
 						    <img width=25 alt=""  src="${contextPath}/resources/image/btn_modify_qty.jpg">
 						</a>
@@ -263,14 +266,6 @@ function fn_order_all_cart_goods(){
 					      <a href="javascript:fn_order_each_goods('${item.goods_id }','${item.goods_title }','${item.goods_sales_price}','${item.goods_fileName}');">
 					       	<img width="75" alt=""  src="${contextPath}/resources/image/btn_order.jpg">
 							</a><br>
-					 	<a href="#"> 
-					 	   <img width="75" alt=""
-							src="${contextPath}/resources/image/btn_order_later.jpg">
-						</a><br> 
-						<a href="#"> 
-						   <img width="75" alt=""
-							src="${contextPath}/resources/image/btn_add_list.jpg">
-						</A><br> 
 						<a href="javascript:delete_cart_goods('${cart_id}');"> 
 						   <img width="75" alt=""
 							   src="${contextPath}/resources/image/btn_delete.jpg">
