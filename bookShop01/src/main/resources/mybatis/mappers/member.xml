@@ -83,7 +83,7 @@
   <insert id="insertNewMember"  parameterType="memberVO">
   <![CDATA[
     	insert into t_shopping_member(member_id,
-				 					                  member_pw,
+				 					 member_pw,
                                      member_name,
                                      member_gender,
                                      member_birth_y,
@@ -130,4 +130,13 @@
                                       
    ]]>      
   </insert>
+  
+  	<select id="checkMemberMileage" parameterType="memberVO" resultType="Long">
+		select mileage_amount from t_shopping_mileage
+		where 
+		member_id=#{member_id} and
+		member_name=#{member_name}
+	</select>
+	
+  
 </mapper>

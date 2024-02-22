@@ -79,6 +79,10 @@ public class MemberDAOImpl  implements MemberDAO{
 		
 	}*/
 	
-	
+	@Override
+	public Long checkMemberMileage(MemberVO memberVO) throws DataAccessException{
+		Long mileageCheck = sqlSession.selectOne("mapper.member.checkMemberMileage", memberVO);
+		return mileageCheck;
+	}
 	
 }

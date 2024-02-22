@@ -128,4 +128,15 @@
 	  where goods_id=#{goods_id}
 	</delete>
 	
+<!-- 	<select id="checkMemberMileage">
+	
+	</select>
+	
+	<insert id="createNewMemberMileage">
+	
+	</insert>
+	
+	<update id="updateMemberMileage">
+	
+	</update> -->
 </mapper>

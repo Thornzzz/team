@@ -499,6 +499,38 @@ function fn_process_pay_order(){
     formObj.submit();
 	imagePopup('close');
 }
+
+function fn_apply_mileage(amount){
+	var checker=document.getElementById("i_mileage_checkbox");
+	var dis_amount=0;
+	if(checker.checked){
+		dis_amount=Number(document.getElementById("total_mileage_amount").value);
+	}else{
+		dis_amount=Number(document.getElementById("discount_juklip").value);
+	}
+	document.getElementById("p_totalSalesPrice").innerText=dis_amount+"원";
+	var result = 0;
+	var ori_amount = document.getElementById("p_totalPrice").innerText;
+	result= Number(ori_amount) - dis_amount;
+	document.getElementById("p_final_totalPrice").innerHTML= "<p><font size='15'>" + result +"원</font></p>";
+}
+
+function fn_apply_all_mileage(checkbox){
+	var dis_amount = document.getElementById("total_mileage_amount").value;
+	var result = 0;
+	if(checkbox.checked){
+		document.getElementById("p_totalSalesPrice").innerText=dis_amount+"원";
+		var ori_amount = document.getElementById("p_totalPrice").innerText;
+		result= Number(ori_amount) - dis_amount;
+		document.getElementById("p_final_totalPrice").innerHTML= "<p><font size='15'>" + result +"원</font></p>";
+	}else{
+		document.getElementById("p_totalSalesPrice").innerText="0원";
+		var ori_amount = document.getElementById("p_totalPrice").innerText;
+		document.getElementById("p_final_totalPrice").innerHTML= "<p><font size='15'>" + ori_amount +"원</font></p>";
+		
+	}
+}
+
 </script>
 </head>
 <body>
@@ -514,8 +546,8 @@ function fn_process_pay_order(){
 				<td>예상적립금</td>
 				<td>주문금액합계</td>
 			</tr>
+			<c:forEach var="item" items="${myOrderList }"> <!-- 원래 바로 밑 tr 태그 밑에 있었음 -->
 			<tr>
-				<c:forEach var="item" items="${myOrderList }">
 					<td class="goods_image">
 					  <a href="${contextPath}/goods/goodsDetail.do?goods_id=${item.goods_id }">
 					    <img width="75" alt=""  src="${contextPath}/thumbnails.do?goods_id=${item.goods_id}&fileName=${item.goods_fileName}">
@@ -709,8 +741,9 @@ function fn_process_pay_order(){
 			<tbody>
 				<tr class="dot_line">
 					<td width=100>적립금</td>
-					<td><input name="discount_juklip" type="text" size="10" />원/1000원
-						&nbsp;&nbsp;&nbsp; <input type="checkbox" /> 모두 사용하기</td>
+					<td><input id="discount_juklip" name="discount_juklip" type="text" size="10" placeholder="${orderer.member_mileage}" onkeyup="fn_apply_mileage(this.value)" />원/1000원
+						<input type="hidden" id="total_mileage_amount" value="${orderer.member_mileage}"> 
+						&nbsp;&nbsp;&nbsp; <input type="checkbox" id="i_mileage_checkbox" onchange="fn_apply_all_mileage(this)"/> 모두 사용하기</td>
 				</tr>
 				<tr class="dot_line">
 					<td>예치금</td>
@@ -759,7 +792,7 @@ function fn_process_pay_order(){
 					<input id="h_total_order_goods_qty" type="hidden" value="${total_order_goods_qty}" />
 				</td>
 				<td>
-					<p id="p_totalPrice">${total_order_price}원</p> <input
+					<p id="p_totalPrice">${total_order_price}</p><p>원</p> <input
 					id="h_totalPrice" type="hidden" value="${total_order_price}" />
 				</td>
 				<td><IMG width="25" alt=""

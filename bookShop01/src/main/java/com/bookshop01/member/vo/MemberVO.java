@@ -28,6 +28,7 @@ public class MemberVO {
 	private String namujiAddress;
 	private String joinDate;
 	private String del_yn;
+	private Long member_mileage;
 	
 	public String getMember_id() {
 		return member_id;
@@ -182,6 +183,12 @@ public class MemberVO {
 	}
 	public void setDel_yn(String del_yn) {
 		this.del_yn = del_yn;
+	}
+	public Long getMember_mileage() {
+		return member_mileage;
+	}
+	public void setMember_mileage(Long member_mileage) {
+		this.member_mileage = member_mileage;
 	}
 	
 }

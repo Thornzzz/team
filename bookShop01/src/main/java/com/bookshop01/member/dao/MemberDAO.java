@@ -14,4 +14,5 @@ public interface MemberDAO {
 	public String Findid(Map<String, String> memberInfoMap) throws DataAccessException;
 	public String findPwd(Map<String, String> memberInfoMap) throws DataAccessException;
 	//public String unregister(Map<String,String> memberInfoMap) throws DataAccessException;
+	public Long checkMemberMileage(MemberVO memberVO) throws DataAccessException;
 }

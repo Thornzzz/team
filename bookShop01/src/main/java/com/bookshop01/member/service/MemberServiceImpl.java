@@ -19,7 +19,14 @@ public class MemberServiceImpl implements MemberService {
 	
 	@Override
 	public MemberVO login(Map  loginMap) throws Exception{
-		return memberDAO.login(loginMap);
+		MemberVO memberInfo = memberDAO.login(loginMap);
+		Long mileageCheck = memberDAO.checkMemberMileage(memberInfo);
+		if(mileageCheck== null || mileageCheck == 0) {
+			memberInfo.setMember_mileage(0L);
+		}else {
+			memberInfo.setMember_mileage(mileageCheck);
+		}
+		return memberInfo;
 	}
 	
 	@Override
@@ -42,6 +49,7 @@ public class MemberServiceImpl implements MemberService {
 		return memberDAO.Findid(memberInfoMap);
 	}          
 	
+	@Override
 	public String findPwd(Map<String, String> memberInfoMap) throws Exception{
 		return memberDAO.findPwd(memberInfoMap);
 	}
