@@ -34,4 +34,9 @@ public class OrderServiceImpl implements OrderService {
 		return orderDAO.findMyOrder(order_id);
 	}
 
+	@Override
+	public OrderVO callLatestDeliveryAddress(Map<String, String> latestDataMap) {
+		OrderVO orderVO = orderDAO.callLatestDeliveryAddress(latestDataMap);
+		return orderVO;
+	}
 }

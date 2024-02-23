@@ -63,6 +63,10 @@ function execDaumPostcode() {
 }
 
 function fn_overlapped(){
+	console.log("tel1 value" + document.querySelector('[name="tel1"]').value);
+	console.log("tel2 value" + document.querySelector('[name="tel2"]').value);
+	console.log(typeof document.querySelector('[name="tel2"]').value);
+	
     var _id=$("#_member_id").val();
     if(_id==''){
    	 alert("ID를 입력하세요");
@@ -124,48 +128,61 @@ function fn_overlapped(){
  }
  
  function fn_check_data() {
-	 	var checkyn="N"
+	 	var email_checkyn="N"
 	 	var emailsts = document.getElementById('emailsts_yn');
+	 	var sms_checkyn="N"
+		var smssts = document.getElementById('smssts_yn');
 	    var formObj = $("#formObj");
-	    if (formObj.find('input[name="_member_id"]').val() == null || formObj.find('input[name="_member_id"]').val() == "") {
+	    if (document.querySelector('[name="_member_id"]').value == null || document.querySelector('[name="_member_id"]').value == "") {
 	        alert("아이디를 입력해주세요.");
 	        return false;
-	        } else if (formObj.find('input[name="member_pw"]').val() == null || formObj.find('input[name="member_pw"]').val() == "") {
+	    } else if (document.querySelector('[name="member_pw"]').value == null || document.querySelector('[name="member_pw"]').value == "") {
 	        alert("비밀번호를 입력해주세요.");
 	        return false;
-	    } else if (formObj.find('input[name="member_name"]').val() == null || formObj.find('input[name="member_name"]').val() == "") {
+	    } else if (document.querySelector('[name="member_name"]').value == null || document.querySelector('[name="member_name"]').value == "") {
 	        alert("이름을 입력해주세요.");
 	        return false;
-	    }/* else if (formObj.find('input[name="tel2"]').val() == "" && formObj.find('input[name="hp2"]').val() == "") {
+	    } else if (document.querySelector('[name="tel3"]').value == "" && document.querySelector('[name="hp3"]').value == "") {
+	        if (document.querySelector('[name="tel2"]').value == "" || document.querySelector('[name="hp2"]').value == "") {
+	            alert("연락처는 필수 입력사항입니다.");
+	            return false;
+	        }
+	    } else if (document.querySelector('[name="tel3"]').value != "") {
+	        if (document.querySelector('[name="tel2"]').value == "" || document.querySelector('[name="tel1"]').value == "없음") {
+	            alert("전화번호를 끝까지 입력해주세요.");
+	            return false;
+	        }
+	    } else if (document.querySelector('[name="hp3"]').value != "") {
+	        if (document.querySelector('[name="hp2"]').value == "" || document.querySelector('[name="hp1"]').value == "없음") {
+	            alert("휴대전화번호를 끝까지 입력해주세요.");
+	            return false;
+	        }
+	    } else if (document.querySelector('[name="tel1"]').value == "없음" && document.querySelector('[name="hp1"]').value == "없음") {
 	        alert("연락처는 필수 입력사항입니다.");
 	        return false;
-	    }else if (formObj.find('input[name="tel2"]').val() != null || formObj.find('input[name="tel2"]').val() != "") {
-	    	if(formObj.find('input[name="tel1"]').val() == null || formObj.find('input[name="tel1"]').val() == "" || formObj.find('input[name="tel3"]').val() == null || formObj.find('input[name="tel3"]').val() == ""){
-	        alert("전화번호를 끝까지 입력해주세요.");
+	    } else if (document.querySelector('[name="tel2"]').value == "" && document.querySelector('[name="hp2"]').value == "") {
+	        alert("연락처는 필수 입력사항입니다.");
 	        return false;
-	    	}
-	    } else if (formObj.find('input[name="hp2"]').val() != null || formObj.find('input[name="hp2"]').val() != "") {
-	    	if(formObj.find('input[name="hp1"]').val() == null || formObj.find('input[name="hp1"]').val() == "" || formObj.find('input[name="hp3"]').val() == null || formObj.find('input[name="hp3"]').val() == ""){
-		        alert("휴대전화번호를 끝까지 입력해주세요.");
-		        return false;
-		    	}
-		    }*/
-	       /* else if (document.getElementById('check1').checked) {
-	        if (formObj.find('input[name="email1"]').val() == null || formObj.find('input[name="email1"]').val() == "") {
-	            alert("이메일주소를 입력해주세요.");
+	    } 
+	    
+	    if (document.getElementById("sms_checker").checked) {
+	        if (document.querySelector('[name="hp1"]').value == "" || document.querySelector('[name="hp2"]').value == "") {
+	            alert("휴대폰 번호를 입력해주세요.");
 	            return false;
-	        } else if (formObj.find('input[name="email2"]').val() == null || formObj.find('input[name="email2"]').val() == "") {
+	        }
+	    	sms_checkyn="Y";
+	    	smssts.value=sms_checkyn;
+	    }
+	    if (document.getElementById("email_checker").checked) {
+	        if (document.querySelector('[name="email1"]').value == "" || document.querySelector('[name="email2"]').value == "") {
 	            alert("이메일주소를 입력해주세요.");
 	            return false;
 	        }
-	    }*/
+	        email_checkyn="Y";
+	 		emailsts.value=email_checkyn;
+	    }
 	    
 	    // 모든 조건을 통과했을 때에만 서브밋이 되도록 함
-	 	
-	 	if(checkbox.checked){
-	 		checkyn="Y";
-	 	}
-	    emailsts.value=checkyn;
 	    formObj.submit();
 	
 }
@@ -257,8 +274,8 @@ function fn_overlapped(){
 				</tr>
 				<tr class="dot_line">
 					<td class="fixed_join">전화번호</td>
-					<td><select  name="tel1">
-							<option>없음</option>
+					<td><select name="tel1">
+							<option value="없음">없음</option>
 							<option value="02">02</option>
 							<option value="031">031</option>
 							<option value="032">032</option>
@@ -289,7 +306,7 @@ function fn_overlapped(){
 				<tr class="dot_line">
 					<td class="fixed_join">휴대폰번호</td>
 					<td><select  name="hp1">
-							<option>없음</option>
+							<option value="없음">없음</option>
 							<option selected value="010">010</option>
 							<option value="011">011</option>
 							<option value="016">016</option>
@@ -297,7 +314,8 @@ function fn_overlapped(){
 							<option value="018">018</option>
 							<option value="019">019</option>
 					</select> - <input size="10px"  type="text" name="hp2"> - <input size="10px"  type="text"name="hp3"><br> <br> 
-					<input type="checkbox"	name="smssts_yn" value="Y" checked /> 쇼핑몰에서 발송하는 SMS 소식을 수신합니다.</td>
+					<input type="checkbox"	id="sms_checker" name="smssts_checker" value="Y" checked /> 쇼핑몰에서 발송하는 SMS 소식을 수신합니다.
+										<input type="hidden" name="smssts_yn" id="smssts_yn" ></td>
 				</tr>
 				<tr class="dot_line">
 					<td class="fixed_join">이메일<br>(e-mail)</td>
@@ -315,8 +333,9 @@ function fn_overlapped(){
 									<option value="empal.com">empal.com</option>
 									<option value="korea.com">korea.com</option>
 									<option value="freechal.com">freechal.com</option>
-							</select><br> <br> <input type="checkbox" name="check1" id="check1" checked> 쇼핑몰에서 발송하는 e-mail을 수신합니다.</td>
-												<input type="hidden" name="emailsts_yn" id="emailsts_yn" >
+							</select><br> <br> <input type="checkbox" name="email_checker" id="email_checker" checked> 쇼핑몰에서 발송하는 e-mail을 수신합니다.
+												<input type="hidden" name="emailsts_yn" id="emailsts_yn" ></td>
+												
 				</tr>
 				<tr class="dot_line">
 					<td class="fixed_join">주소</td>

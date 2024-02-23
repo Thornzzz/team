@@ -10,11 +10,16 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.bookshop01.common.base.BaseController;
@@ -66,8 +71,11 @@ public class OrderControllerImpl extends BaseController implements OrderControll
 
 		MemberVO memberInfo=(MemberVO)session.getAttribute("memberInfo");
 		
+		Map<String,String> lateDeliAddrMap = callLatestDeliveryAddress(memberInfo);
 		session.setAttribute("myOrderList", myOrderList);
 		session.setAttribute("orderer", memberInfo);
+		session.setAttribute("lateDeliAddrMap", lateDeliAddrMap);
+		
 		return mav;
 	}
 	
@@ -103,8 +111,10 @@ public class OrderControllerImpl extends BaseController implements OrderControll
 				}
 			}
 		}
+		Map<String,String> lateDeliAddrMap = callLatestDeliveryAddress(memberVO);
 		session.setAttribute("myOrderList", myOrderList);
 		session.setAttribute("orderer", memberVO);
+		session.setAttribute("lateDeliAddrMap", lateDeliAddrMap);
 		return mav;
 	}	
 	
@@ -152,5 +162,47 @@ public class OrderControllerImpl extends BaseController implements OrderControll
 		return mav;
 	}
 	
+/*	@Override
+	@RequestMapping(value="/callLatestDeliveryAddress.do", method=RequestMethod.POST)
+	public ResponseEntity callLatestDeliveryAddress(@RequestParam Map<String, String> latestDataMap,HttpServletRequest request, HttpServletResponse response)  throws Exception {
+	    ResponseEntity resEntity=null;
+	
 
+	    Class<?> type = latestDeliveryAddrMap.getClass();
+	    
+	    System.out.println(type.getName());
+	    response.setContentType("application/json;charset=utf8");
+	    
+	    return resEntity = new ResponseEntity(latestDeliveryAddrMap, HttpStatus.OK);
+	}*/
+	public Map<String,String> callLatestDeliveryAddress(MemberVO memberInfo) throws Exception{
+		
+		Map<String, String> lateDeliverMap = new HashMap<String,String>();
+		
+		String member_id=memberInfo.getMember_id();
+		String orderer_name = memberInfo.getMember_name();
+		
+		lateDeliverMap.put("member_id", member_id);
+		lateDeliverMap.put("orderer_name", orderer_name);
+		
+		OrderVO lateOrderVO = orderService.callLatestDeliveryAddress(lateDeliverMap);
+	    
+		Map<String, String> latestDeliveryAddrMap = new HashMap<String,String>();
+	    
+	    latestDeliveryAddrMap.put("receiver_name", lateOrderVO.getReceiver_name());
+	    latestDeliveryAddrMap.put("receiver_hp1", lateOrderVO.getReceiver_hp1());
+	    latestDeliveryAddrMap.put("receiver_hp2", lateOrderVO.getReceiver_hp2());
+	    latestDeliveryAddrMap.put("receiver_hp3", lateOrderVO.getReceiver_hp3());
+	    latestDeliveryAddrMap.put("receiver_tel1", lateOrderVO.getReceiver_tel1());
+	    latestDeliveryAddrMap.put("receiver_tel2", lateOrderVO.getReceiver_tel2());
+	    latestDeliveryAddrMap.put("receiver_tel3", lateOrderVO.getReceiver_tel3());
+	    latestDeliveryAddrMap.put("deliver_address", lateOrderVO.getDelivery_address());
+	    latestDeliveryAddrMap.put("deliver_message", lateOrderVO.getDelivery_message());
+	    latestDeliveryAddrMap.put("pay_order_time", lateOrderVO.getPay_order_time());
+	    latestDeliveryAddrMap.put("gift_wrapping", lateOrderVO.getGift_wrapping());
+	    
+	    System.out.println(lateOrderVO.toString());
+	    
+	    return latestDeliveryAddrMap;
+	}
 }

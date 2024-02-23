@@ -2,6 +2,7 @@ package com.bookshop01.order.dao;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,5 +51,12 @@ public class OrderDAOImpl implements OrderDAO {
 		return sqlSession.selectOne("mapper.order.selectOrderID");
 		
 	}
+	
+	public OrderVO callLatestDeliveryAddress(Map<String, String> latestDataMap) throws DataAccessException{
+		OrderVO orderVO = sqlSession.selectOne("mapper.order.callLatestDeliveryAddress", latestDataMap);
+		return orderVO;
+	}
+	
+	
 }
 

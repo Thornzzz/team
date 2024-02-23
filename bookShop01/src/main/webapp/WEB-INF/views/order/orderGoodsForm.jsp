@@ -3,7 +3,7 @@
 	 isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:set var="contextPath"  value="${pageContext.request.contextPath}"  />
-<c:set var="orderVO"  value="${orderVO}"  />
+<c:set var="lateDeliAddrMap"  value="${lateDeliAddrMap}"  />
 <!-- 주문자 휴대폰 번호 -->
 <c:set  var="orderer_hp" value=""/>
 <!-- 최종 결제 금액 -->
@@ -531,9 +531,37 @@ function fn_apply_all_mileage(checkbox){
 	}
 }
 
+function fn_get_latest_delivery_address(){
+	console.log("최신" + document.getElementById("i_receiver_name").value);
+	document.getElementById("receiver_name").value=document.getElementById("i_receiver_name").value;
+	document.getElementById("hp1").value=document.getElementById("i_receiver_hp1").value;
+	document.getElementById("hp2").value=document.getElementById("i_receiver_hp2").value;
+	document.getElementById("hp3").value=document.getElementById("i_receiver_hp3").value;
+	document.getElementById("tel1").value=document.getElementById("i_receiver_tel1").value;
+	document.getElementById("tel2").value=document.getElementById("i_receiver_tel2").value;
+	document.getElementById("tel3").value=document.getElementById("i_receiver_tel3").value;
+}
+
+function fn_check_necessary_requirements(){
+	
+	
+	
+}
+
 </script>
 </head>
 <body>
+	<input type="hidden" id="i_receiver_name" value="${lateDeliAddrMap.receiver_name}">
+	<input type="hidden" id="i_receiver_hp1" value="${lateDeliAddrMap.receiver_hp1 }">
+	<input type="hidden" id="i_receiver_hp2" value="${lateDeliAddrMap.receiver_hp2 }">
+	<input type="hidden" id="i_receiver_hp3" value="${lateDeliAddrMap.receiver_hp3 }">
+	<input type="hidden" id="i_receiver_tel1" value="${lateDeliAddrMap.receiver_tel1 }">
+	<input type="hidden" id="i_receiver_tel2" value="${lateDeliAddrMap.receiver_tel2 }">
+	<input type="hidden" id="i_receiver_tel3" value="${lateDeliAddrMap.receiver_tel3 }">
+	<input type="hidden" id="i_delivery_address" value="${lateDeliAddrMap.delivery_address }">
+	<input type="hidden" id="i_delivery_message" value="${lateDeliAddrMap.delivery_message }">
+	<input type="hidden" id="i_gift_wrapping" value="${lateDeliAddrMap.gift_wrapping }">
+	<input type="hidden" id="i_pay_order_time" value="${lateDeliAddrMap.pay_order_time }">
 	<H1>1.주문확인</H1>
 <form  name="form_order">	
 	<table class="list_view">
@@ -604,7 +632,7 @@ function fn_apply_all_mileage(checkbox){
 					<td><input type="radio" name="delivery_place"
 						onClick="restore_all()" value="기본배송지" checked>기본배송지 &nbsp;&nbsp;&nbsp; 
 						<input type="radio" name="delivery_place" value="새로입력" onClick="reset_all()">새로입력 &nbsp;&nbsp;&nbsp;
-						<input type="radio" name="delivery_place" value="최근배송지">최근배송지 &nbsp;&nbsp;&nbsp;
+						<input type="radio" name="delivery_place" value="최근배송지" onClick="fn_get_latest_delivery_address()">최근배송지 &nbsp;&nbsp;&nbsp;
 				    </td>
 				</tr>
 				<tr class="dot_line">
@@ -711,7 +739,8 @@ function fn_apply_all_mileage(checkbox){
 			 <tr class="dot_line">
 				<td ><h2>이름</h2></td>
 				<td>
-				 <input  type="text" value="${orderer.member_name}" size="15" />
+				 <input id="member_name" type="text" value="${orderer.member_name}" size="15" />
+				 <input id="h_orderer_id" type="hidden" value="${orderer.member_id}" size="15" />
 				</td>
 			  </tr>
 			  <tr class="dot_line">

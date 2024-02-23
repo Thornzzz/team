@@ -139,4 +139,21 @@
 	<update id="updateMemberMileage">
 	
 	</update> -->
+	<select id="callLatestDeliveryAddress" resultType="orderVO" parameterType="java.util.Map">
+		select receiver_name,
+			   receiver_hp1,
+			   receiver_hp2,
+			   receiver_hp3,
+			   receiver_tel1,
+			   receiver_tel2,
+			   receiver_tel3,
+			   delivery_address,
+			   delivery_message,
+			   gift_wrapping,
+			   pay_order_time from t_shopping_order 
+               where 
+               orderer_name = #{orderer_name} and
+               member_id = #{member_id} and
+			   pay_order_time = (select max(pay_order_time) from t_shopping_order)
+			   </select>
 </mapper>
