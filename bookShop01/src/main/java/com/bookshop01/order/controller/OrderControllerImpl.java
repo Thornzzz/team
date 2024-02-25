@@ -202,7 +202,7 @@ public class OrderControllerImpl extends BaseController implements OrderControll
 	    latestDeliveryAddrMap.put("gift_wrapping", lateOrderVO.getGift_wrapping());
 	    
 	    System.out.println(lateOrderVO.toString());
-	    
+	    System.out.println("주소" +lateOrderVO.getDelivery_address());
 	    return latestDeliveryAddrMap;
 	}
 }

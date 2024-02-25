@@ -540,6 +540,26 @@ function fn_get_latest_delivery_address(){
 	document.getElementById("tel1").value=document.getElementById("i_receiver_tel1").value;
 	document.getElementById("tel2").value=document.getElementById("i_receiver_tel2").value;
 	document.getElementById("tel3").value=document.getElementById("i_receiver_tel3").value;
+	var addressString = document.getElementById("i_delivery_address").value;
+	var splitArray = addressString.split("<br>");
+
+	console.log(splitArray);
+	var addressObject = {};
+	var lastItem = splitArray[splitArray.length -1];
+	console.log(lastItem);
+	// splitArray의 각 요소를 : 기준으로 다시 분할하여 객체에 저장
+	splitArray.forEach(function(item) {
+	    var keyValue = item.split(":");
+	    addressObject[keyValue[0]] = keyValue[1];
+
+	});
+
+	// 결과 출력
+	console.log(addressObject);;
+	document.getElementById("zipcode").value= addressObject['우편번호'];
+	document.getElementById("roadAddress").value= addressObject['도로명 주소'];
+	document.getElementById("jibunAddress").value= addressObject['[지번 주소'].replace("]","");
+	document.getElementById("namujiAddress").value=lastItem;
 }
 
 function fn_check_necessary_requirements(){
@@ -558,8 +578,8 @@ function fn_check_necessary_requirements(){
 	<input type="hidden" id="i_receiver_tel1" value="${lateDeliAddrMap.receiver_tel1 }">
 	<input type="hidden" id="i_receiver_tel2" value="${lateDeliAddrMap.receiver_tel2 }">
 	<input type="hidden" id="i_receiver_tel3" value="${lateDeliAddrMap.receiver_tel3 }">
-	<input type="hidden" id="i_delivery_address" value="${lateDeliAddrMap.delivery_address }">
-	<input type="hidden" id="i_delivery_message" value="${lateDeliAddrMap.delivery_message }">
+	<input type="hidden" id="i_delivery_address" value="${lateDeliAddrMap.deliver_address }">
+	<input type="hidden" id="i_delivery_message" value="${lateDeliAddrMap.deliver_message }">
 	<input type="hidden" id="i_gift_wrapping" value="${lateDeliAddrMap.gift_wrapping }">
 	<input type="hidden" id="i_pay_order_time" value="${lateDeliAddrMap.pay_order_time }">
 	<H1>1.주문확인</H1>
@@ -701,9 +721,9 @@ function fn_check_necessary_requirements(){
 						value="${orderer.zipcode }"> 
 						<a href="javascript:execDaumPostcode()">우편번호검색</a> <br>
 						<p>
-							지번 주소:<br>
+							도로명 주소:<br>
 							<input type="text" id="roadAddress" name="roadAddress" size="50" value="${orderer.roadAddress }" /><br>
-							<br> 도로명 주소: 
+							<br> 지번 주소: 
 							   <input type="text" id="jibunAddress" name="jibunAddress" size="50"
 								              value="${orderer.jibunAddress }" /><br>
 							<br> 나머지 주소: 

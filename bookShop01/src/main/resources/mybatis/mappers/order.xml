@@ -154,6 +154,7 @@
                where 
                orderer_name = #{orderer_name} and
                member_id = #{member_id} and
-			   pay_order_time = (select max(pay_order_time) from t_shopping_order)
+			   pay_order_time = (select max(pay_order_time) from t_shopping_order) and
+			   order_seq_num = (select max(order_seq_num) from t_shopping_order)
 			   </select>
 </mapper>
