@@ -335,7 +335,8 @@ function fn_show_order_detail(){
 				 		"할부개월수:"+card_pay_month;
 			pay_orderer_hp_num="해당없음";
 			
-		  }else if(pay_method=="휴대폰결제"){
+		  }
+		   else if(pay_method=="휴대폰결제"){
 			var i_pay_order_tel1=document.getElementById("pay_order_tel1");
 			var i_pay_order_tel2=document.getElementById("pay_order_tel2");
 			var i_pay_order_tel3=document.getElementById("pay_order_tel3");
@@ -345,7 +346,7 @@ function fn_show_order_detail(){
 			pay_method+="<Br>"+"결제휴대폰번호:"+pay_orderer_hp_num;
 			card_com_name="해당없음";
 			card_pay_month="해당없음";
-		  } //end if
+		  } //end if 
 		 break;
 	  }// end for
 	}
@@ -1069,6 +1070,7 @@ function fn_check_necessary_requirements() {
 				</tbody>
 				</table>
 			</div>
+
 			<div class="clear"></div>	
 			<br> 
 			
