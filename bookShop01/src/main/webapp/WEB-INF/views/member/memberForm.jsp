@@ -123,8 +123,7 @@ function fn_overlapped(){
  
  function fn_check_result(data){
 	
-
-	 
+ 
  }
  
  function fn_check_data() {
@@ -183,12 +182,55 @@ function fn_overlapped(){
 	    }
 	    
 	    // 모든 조건을 통과했을 때에만 서브밋이 되도록 함
-	    formObj.submit();
-	
+	    formObj.submit();	
 }
- 
 
+ function fn_ccheck(){
+	 var hp1 = document.querySelector("[name='hp1']");
+	 console.log("확인"+hp1.value);
+	 var hp2 = document.querySelector("[name='member_birth_m']");
+	 console.log("확인"+hp2.value);
+ }
+
+ function updateDayOptions() {
+	    var yearSelect = document.querySelector("[name='member_birth_y']");
+	    var monthSelect = document.querySelector("[name='member_birth_m']");
+	    var daySelect = document.querySelector("[name='member_birth_d']");
+	    var selectedMonth = parseInt(monthSelect.value);
+	    var selectedYear = parseInt(yearSelect.value);
+	    var maxDay;
+
+	    // 윤년 여부 확인
+	    if ((selectedYear % 4 === 0 && selectedYear % 100 !== 0) || selectedYear % 400 === 0) {
+	        // 윤년인 경우
+	        maxDay = (selectedMonth === 2) ? 29 : 31;
+	    } else {
+	        // 윤년이 아닌 경우
+	        maxDay = (selectedMonth === 2) ? 28 : 31;
+	    }
+
+	    if ([4, 6, 9, 11].includes(selectedMonth)) {
+	        maxDay = 30;
+	    }
+
+	    
+	    daySelect.innerHTML = ""; // 기존의 일 옵션을 모두 제거
+
+	    for (var day = 1; day <= maxDay; day++) {
+	        var option = document.createElement("option");
+	        option.text = day;
+	        option.value = day;
+	        daySelect.add(option);
+	    }
+	}
  
+ document.addEventListener("DOMContentLoaded", function() {
+	    // 이 곳에 스크립트 코드를 넣으면 됩니다.
+	    var monthSelect = document.querySelector("[name='member_birth_m']");
+	    var yearSelect = document.querySelector("[name='member_birth_y']");
+	    monthSelect.addEventListener("change", updateDayOptions);
+	    yearSelect.addEventListener("change", updateDayOptions);
+	});
 </script>
 </head>
 <body>
@@ -243,18 +285,18 @@ function fn_overlapped(){
 					   	</c:forEach> 
 							
 					</select>년 
-					 <select name="member_birth_m" >
-					   <c:forEach var="month" begin="1" end="12">
-					       <c:choose>
-					         <c:when test="${month==5 }">
-							   <option value="${month }" selected>${month }</option>
-							</c:when>
-							<c:otherwise>
-							  <option value="${month }">${month}</option>
-							</c:otherwise>
-							</c:choose>
-					   	</c:forEach>
-					</select>월  
+					 <select name="member_birth_m">
+					    <c:forEach var="month" begin="1" end="12">
+					        <c:choose>
+					            <c:when test="${month==5}">
+					                <option value="${month}" selected>${month}</option>
+					            </c:when>
+					            <c:otherwise>
+					                <option value="${month}">${month}</option>
+					            </c:otherwise>
+					        </c:choose>
+					    </c:forEach>
+					</select>월
 					<select name="member_birth_d">
 							<c:forEach var="day" begin="1" end="31">
 					       <c:choose>
@@ -262,7 +304,7 @@ function fn_overlapped(){
 							   <option value="${day}" selected>${day}</option>
 							</c:when>
 							<c:otherwise>
-							  <option value="${day}">${day}</option>
+								<option value="${day}">${day}</option>
 							</c:otherwise>
 							</c:choose>
 					   	</c:forEach>
@@ -315,7 +357,7 @@ function fn_overlapped(){
 							<option value="019">019</option>
 					</select> - <input size="10px"  type="text" name="hp2"> - <input size="10px"  type="text"name="hp3"><br> <br> 
 					<input type="checkbox"	id="sms_checker" name="smssts_checker" value="Y" checked /> 쇼핑몰에서 발송하는 SMS 소식을 수신합니다.
-										<input type="hidden" name="smssts_yn" id="smssts_yn" ></td>
+										<input type="hidden" name="smssts_yn" id="smssts_yn" >				
 				</tr>
 				<tr class="dot_line">
 					<td class="fixed_join">이메일<br>(e-mail)</td>

@@ -250,6 +250,11 @@ var card_pay_month;
 var pay_orderer_hp_num;
 
 function fn_show_order_detail(){
+	  if (fn_check_necessary_requirements() === false) {
+	        // 다음 단계로 이동하는 로직 추가
+	        // 예를 들어, 폼을 제출하거나 다음 페이지로 이동하는 등의 작업을 수행할 수 있습니다.
+	     return false;
+	    }
 	goods_id="";
 	goods_title="";
 	
@@ -416,7 +421,7 @@ function fn_show_order_detail(){
 }
 
 function fn_process_pay_order(){
-	
+
 	alert("최종 결제하기");
 	var formObj=document.createElement("form");
     var i_receiver_name=document.createElement("input");
@@ -492,7 +497,6 @@ function fn_process_pay_order(){
     formObj.appendChild(i_card_pay_month);
     formObj.appendChild(i_pay_orderer_hp_num);
     
-
     document.body.appendChild(formObj); 
     formObj.method="post";
     formObj.action="${contextPath}/order/payToOrderGoods.do";
@@ -562,10 +566,28 @@ function fn_get_latest_delivery_address(){
 	document.getElementById("namujiAddress").value=lastItem;
 }
 
-function fn_check_necessary_requirements(){
-	
-	
-	
+function fn_check_necessary_requirements() {
+	console.log("확인");
+    const fields = {
+        "receiver_name": "받으실 분을 입력해주세요.",
+        "hp2": "휴대전화번호를 입력해주세요.",
+        "hp3": "휴대전화번호를 입력해주세요.",
+        "zipcode": "우편번호를 입력해주세요.",
+        "roadAddress": "배송지 주소를 입력해주세요.",
+        "jibunAddress": "배송지 주소를 입력해주세요.",
+        "namujiAddress": "배송지 주소를 입력해주세요."
+    };
+
+    for (let fieldName in fields) {
+    	const field = document.getElementById(fieldName); // name으로 요소 가져오기
+    	console.log("field:", field);
+    	if (field.value === "") {
+    	    alert(fields[fieldName]);
+    	    return false;
+    	}
+    }
+
+    return true;
 }
 
 </script>
@@ -794,29 +816,6 @@ function fn_check_necessary_requirements(){
 						<input type="hidden" id="total_mileage_amount" value="${orderer.member_mileage}"> 
 						&nbsp;&nbsp;&nbsp; <input type="checkbox" id="i_mileage_checkbox" onchange="fn_apply_all_mileage(this)"/> 모두 사용하기</td>
 				</tr>
-				<tr class="dot_line">
-					<td>예치금</td>
-					<td><input name="discount_yechi" type="text" size="10" />원/1000원
-						&nbsp;&nbsp;&nbsp; <input type="checkbox" /> 모두 사용하기</td>
-				</tr>
-				<tr class="dot_line">
-					<td>상품권 전환금</td>
-					<td cellpadding="5"><input name="discount_sangpum" type="text"
-						size="10" />원/0원 &nbsp;&nbsp;&nbsp; <input type="checkbox" /> 모두
-						사용하기</td>
-				</tr>
-				<tr class="dot_line">
-					<td>OK 캐쉬백 포인트</td>
-					<td cellpadding="5"><input name="discount_okcashbag" type="text"
-						size="10" />원/0원 &nbsp;&nbsp;&nbsp; <input type="checkbox" /> 모두
-						사용하기</td>
-				</tr>
-				<tr class="dot_line">
-					<td>쿠폰할인</td>
-					<td cellpadding="5"><input name="discount_coupon" type="text"
-						size="10" />원/0원 &nbsp;&nbsp;&nbsp; <input type="checkbox" /> 모두
-						사용하기</td>
-				</tr>
 			</tbody>
 		</table>
 	</div>
@@ -944,7 +943,7 @@ function fn_check_necessary_requirements(){
 		</a> <a href="${contextPath}/main/main.do"> 
 		   <img width="75" alt="" src="${contextPath}/resources/image/btn_shoping_continue.jpg">
 		</a>
-	
+
 <div class="clear"></div>		
 	<div id="layer" style="visibility:hidden">
 		<!-- visibility:hidden 으로 설정하여 해당 div안의 모든것들을 가려둔다. -->
