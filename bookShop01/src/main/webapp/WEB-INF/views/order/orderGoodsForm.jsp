@@ -270,7 +270,6 @@ function fn_show_order_detail(){
 	var h_orderer_name=document.getElementById("h_orderer_name");
 	var i_receiver_name=document.getElementById("receiver_name");
 	
-	
 	if(h_goods_id.length <2 ||h_goods_id.length==null){
 		goods_id+=h_goods_id.value;
 	}else{
@@ -389,12 +388,15 @@ function fn_show_order_detail(){
 								  i_namujiAddress.value;
 	
 	delivery_message=i_delivery_message.value;
+	var discount_juklip=document.getElementById("discount_juklip");
+	var juklip_amount=discount_juklip.value;
 	
 	var p_order_goods_id=document.getElementById("p_order_goods_id");
 	var p_order_goods_title=document.getElementById("p_order_goods_title");
 	var p_order_goods_qty=document.getElementById("p_order_goods_qty");
 	var p_total_order_goods_qty=document.getElementById("p_total_order_goods_qty");
 	var p_total_order_goods_price=document.getElementById("p_total_order_goods_price");
+	var p_discount_juklip=document.getElementById("p_discount_juklip");
 	var p_orderer_name=document.getElementById("p_orderer_name");
 	var p_receiver_name=document.getElementById("p_receiver_name");
 	var p_delivery_method=document.getElementById("p_delivery_method");
@@ -409,6 +411,7 @@ function fn_show_order_detail(){
 	p_order_goods_title.innerHTML=goods_title;
 	p_total_order_goods_qty.innerHTML=total_order_goods_qty+"개";
 	p_total_order_goods_price.innerHTML=total_order_goods_price+"원";
+	p_discount_juklip.innerHTML=juklip_amount+"원";
 	p_orderer_name.innerHTML=orderer_name;
 	p_receiver_name.innerHTML=receiver_name;
 	p_delivery_method.innerHTML=delivery_method;
@@ -443,6 +446,7 @@ function fn_process_pay_order(){
     var i_card_com_name=document.createElement("input");
     var i_card_pay_month=document.createElement("input");
     var i_pay_orderer_hp_num=document.createElement("input");
+    var i_discount_juklip=document.createElement("input");
    
     i_receiver_name.name="receiver_name";
     i_receiver_hp1.name="receiver_hp1";
@@ -461,6 +465,7 @@ function fn_process_pay_order(){
     i_card_com_name.name="card_com_name";
     i_card_pay_month.name="card_pay_month";
     i_pay_orderer_hp_num.name="pay_orderer_hp_num";
+    i_discount_juklip.name="discount_juklip";
   
     i_receiver_name.value=receiver_name;
     i_receiver_hp1.value=hp1;
@@ -479,6 +484,7 @@ function fn_process_pay_order(){
     i_card_com_name.value=card_com_name;
     i_card_pay_month.value=card_pay_month;
     i_pay_orderer_hp_num.value=pay_orderer_hp_num;
+    i_discount_juklip.value=juklip_amount;
     
     formObj.appendChild(i_receiver_name);
     formObj.appendChild(i_receiver_hp1);
@@ -497,6 +503,7 @@ function fn_process_pay_order(){
     formObj.appendChild(i_card_com_name);
     formObj.appendChild(i_card_pay_month);
     formObj.appendChild(i_pay_orderer_hp_num);
+    formObj.appendChild(i_discount_juklip);
     
     document.body.appendChild(formObj); 
     formObj.method="post";
@@ -528,6 +535,7 @@ function fn_apply_all_mileage(checkbox){
 		var ori_amount = document.getElementById("p_totalPrice").innerText;
 		result= Number(ori_amount) - dis_amount;
 		document.getElementById("p_final_totalPrice").innerHTML= "<p><font size='15'>" + result +"원</font></p>";
+		document.getElementById("discount_juklip").value=dis_amount;
 	}else{
 		document.getElementById("p_totalSalesPrice").innerText="0원";
 		var ori_amount = document.getElementById("p_totalPrice").innerText;
@@ -990,6 +998,14 @@ function fn_check_necessary_requirements() {
 					      <p id="p_total_order_goods_price">주문금액합계</p>
 					 </td>
 				   </tr>
+				   	<tr>
+				   		<td width=200px>
+				   			적립금 사용액:
+				   		</td>
+				   		<td>
+				   			<p id="p_discount_juklip">사용 금액</p>
+				   		</td>
+				   	</tr>
 					<tr>
 					  <td width=200px>
 					     주문자:
